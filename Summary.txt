@@ -1,47 +1,77 @@
-Tic-Tac-Toe is played between two players: the first player, who begins to play, and the second player.
+COMPONENTS
+
+Tic-Tac-Toe is played by two players: the first player, who begins to play, and the second player.
 It is played on the board, a 3x3 grid.
-Each unit of the grid is a cell (or square), and it can be filled by the players. Filled squares can't be filled again, only empty squares can be filled. Each square has a status telling if it was filled and by which player.
-Statuses can be represented by players with markers placed on each square.
-The players make a move when they fill a square.
-Three lined-up filled squares with the same status is said an alignment.
-The first player to do an alignment is the winner. If every square is filled and there is no winner, then the players tied.
-A Tic-Tac-Toe game consists in the first and the second player taking turns making a move until there is a winner or a tie.
+Each unit of the grid is a cell, and it can be taken by the players. Taken cells can't be taken again, only empty cells can be taked.
+Each cell has a status telling if it was taken and by which player.
+Statuses can be represented by players with markers placed on each cell. Markers are the players' alternative to statuses.
+The players make a move when they take a cell.
+Three lined-up taken cells with the same status is said an alignment.
+The first player to do an alignment is the winner. If every cell is taken and there is no winner, then the players tied.
+A Tic-Tac-Toe game consists in the first and the second player taking turns making a move until there is a winner or a tie, reaching the end of the game. The game begins with an empty board, which has only empty cells.
+The first player can't do more than five moves in a game. The second player can't do more than four moves in a game, and it can't do more moves than the first player. The maximum number of moves possible on the board is 9.
 
-The first player can't do more than five moves in a game. The second player can't do more than four moves in a game, and it can't do more moves than the first player.
+DEPTH
 
-If players continue playing reguardless if there is a winner, they will fill each cell of the board. They will end up with a full board. A full board can have a tie, one winner or even two. In terms of alignments, it can have zero, one or two (made by the same player or by both the players). Full boards can contain multiple Tic-tac-Toe games, revealed by emptying squares until only one alignment remains.
+Depth measures the progress the players reaches, and it is equal to the number of moves made. So, depth is a whole number in the interval [0,10]. Depth 10 represents a progress the players can't reach.
+Low depths belongs to the interval [0,4], high depths to the interval [5,10].
+
+Alignments can be made in high depths. There are 8 different alignments that the players can make.
+
+The players could continue playing reguardless if the game ended. This type of game is called non-standard and have depth in the interval [6,10], while regular games are called standard. A game is complete when it can be seen as ended, these games have high depth; the games excluded from this set are ongoing games, with depth in the interval [0,8]. The same definitions can be applied on other Tic-Tac-Toe components.
+Low depth games are standard and ongoing.
+
+A complete board can have a tie, one winner or even two. In terms of alignments, it can have zero, one or two (made by both the players or two made by the first player).
+
+The players will eventually take every cell of the board and end up with a full board, with depth 9.
+Full boards can contain multiple Tic-tac-Toe games, revealed by emptying cells until only one alignment remains.
+
+TRANSFORMATIONS
 
 The status of a cell is 0 if the cell if empty, 1 if the cell was taken by the first player, or 2 if it was taken by the second player.
-Boards can be represented by the cells' statuses, written as a board, in sequence or in other ways; the importart thing is to keep in mind which status represents each cell of the board.
+Boards can be represented by the cells' statuses, written as a board, in sequence or in other ways; it is important to keep in mind which status represents which cell of the board.
 
-The two players can have different point of views of the board, and this is explained by transformations.
-The transformations valid inside the board are rotations (of 90°, 180° or 270°, counterclockwise or clockwise) and reflections (in a mirror line of 0°, 45°, 90° or 135°), and they must be applied at the center of the board. Some of these transformations are reduntant and can be simplified in 90° counterclockwise rotations and reflections in mirror lines of 0° and 45°. Reflections in mirror lines of 45° can be obtained combining rotations and reflections, but it is as important as the other two main transformations are.
+The two players can have different point of views of the board, and this is explained by transformations on the plain.
+The transformations that are valid inside the board are rotations (of 90°, 180° or 270°, counterclockwise or clockwise) and reflections (in a mirror line of 0°, 45°, 90° or 135°), and they must be applied at the center of the board. Some of these transformations are reduntant and can be simplified in 90° counterclockwise rotations and reflections in mirror lines of 0° and 45°. Reflections in mirror lines of 45° can be obtained combining rotations and reflections, but it is as important as the other two main transformations are.
 
-Transformations are applied on full and non-full boards to see similarities between the boards.
+Transformations are applied on boards to see similarities between each other, focusing on the statuses of the boards.
 
-There are 8 different alignments.
-Applying transformations on alignments reduces the eight alignments to three main alignments: the diagonal alignment, the middle alignment and the side alignment.
+Applying transformations on alignments reduces the previous eight alignments to three main alignments: the diagonal alignment, the middle alignment and the side alignment.
+
+NUMERIC IDS
 
 Cells can be given an ID. A simple way to do so is giving IDs from 0 to 8, from left to right, from top to bottom of the grid.
 
-Alignments can be represented by cells' IDs, since each alignment is three cells lined-up. For example, the cells that are in a diagonal alignment are either the cells of ID 0, 4, 8 or the cells of ID 2, 4, 6; then, diagonal alignments can be written as 048 and 246.
+Alignments can be represented by cells' IDs, since each alignment is three cells lined-up. For example, the cells that are in a diagonal alignment are either the cells of ID 0, 4, 8 or the cells of ID 2, 4, 6; then, diagonal alignments can be written as 048 and 246, and their similars like 408, 642 and so on.
 
-If transformations are applied on an empty board, it can be seen that there are similar cells. This process enlightes three types of cells: the corner cell (of ID 0, 2, 6, 8), the middle cell (of ID 1, 3, 5, 7) and the center cell (of ID 4). Since transformations are applied on the center of the board, the center cell stays and will always stay the same and have ID 4.
+If transformations are applied on an empty board, it can be seen that there are similar cells. This process enlightes three types of cells: the corner cell (of ID 0, 2, 6, 8), the middle cell (of ID 1, 3, 5, 7) and the centeral cell (of ID 4), which I like to call center cell because it reminds me of the center of the board. Since transformations are applied on the center of the board, the center cell stays and will always stay the same and have ID 4.
 
-Cell's IDs can be used to determinate players' moves to understand wihch square was filled by a player.
+Cell's IDs can be used to determinate players' moves to understand wihch cell was taken by a player.
 
-Moves put in sequence represents a Tic-Tac-Toe game. Since players take turns, if a move is made by the first player, the next will be made by the second player, and the one after that by the first player again and so on.
+Moves put in sequence represents a Tic-Tac-Toe game; those sequences are called numeric sequences, because the IDs used are numeric.
+Since players take turns, if a move is made by the first player, the next will be made by the second player, and the one after that by the first player again and so on.
 
 The same logic of transformations can be applied on sequence of moves too, but instead of focusing on statuses the new focus will be the cells' IDs.
 Knowing the relations between corner cells and middle cells we can say that (0,2,6,8) and (1,3,7,9) can represent the same moves.
-A sequence must be fully transformed, it can't be transformed by just a portion of it because this process could lead to ambiguities.
-On the other hand, sometimes doing so can be useful and it can lead to valid conclusions. Using IDs from 0 to 8 is a limited way to distinguish moves in these kind of partial transformations.
+A sequence must be fully transformed, it can't be transformed by just a portion of it because this process could lead to ambiguities. On the other hand, sometimes doing so can be useful and it can lead to valid conclusions.
+Using IDs from 0 to 8 is a limited way to distinguish moves in these kind of partial transformations.
 
-To solve this problem, moves have to be seen from the cells' point of view instead of the players'. The three type of cells recognise the other cells using the three main transformations disgussed so far: the center cell uses the 90° rotation, the middle cells use the reflection in mirror line of 0° and the corner cells use the reflection in mirror line of 45°.
-For each of the three different point of views, each cell is given a letter-ID; similar cells are given the same ID. There are some cases where a letter-ID can be used in different point of views for the same cells, but it's better not to reuse letter-IDs because it can be ambiguous for some analises.
-This way, some cells can be seen as the same cell, or the other way around, while this wasn't possible with previous IDs.
-Each move is determinated by the previous moves, so by the previous taken cells. Each taken cell will give informations where the new move is made based on their point of view using the new IDs. The last move is determinated combining the informations given by each cell
+UNIVERSALITY
+
+To solve this problem, moves must be seen from the cells' point of view instead of the players'. The three type of cells recognise the other cells thanks to the three main transformations disgussed so far: the center cell uses the 90° rotation, the middle cells use the reflection in mirror line of 0° and the corner cells use the reflection in mirror line of 45°.
+For each of the three different point of views, each cell is given a letter as an ID, called literal ID; similar cells are given the same ID. This way, some cells can be seen as the same cell, or the other way around, while this wasn't possible with previous IDs.
+There are some cases where a literal ID can be used in different point of views for the same cells, but it's better not to reuse literal IDs because it can be ambiguous for some analises.
+
+Each move is determinated by the previous moves, so by the previous taken cells. Each taken cell will give informations where the latest move was made based on their point of view using the literal IDs. The lastly-made move is determinated combining the informations given by each cell.
 The point of views of corner and middle cells needs to be rotated to match the cell's correct point of view.
-This way, moves can now properly be distinguished and compared. Two moves that have the same IDs represent the same move. Two moves that were different because of old IDs can be similar now.
-From the fifth move, the point of view can switched from the taken cells' view to the empty cells' view, to categorise the moves easier; this process can lead to ambiguities too.
-These new moves can be combined to represent a Tic-Tac-Toe game too, just like the old moves, but this time in a sequence that is universal because it isn't affected by transformations. Just like for moves, games that were previously diffrent can result similar now.
+The result is that moves can now properly be distinguished and compared reguardless of transformations, making them universal. Universal moves are compared by counting the literal IDs of each move: the same counts means the same moves.
+
+The number of literal IDs of moves is the same as the depth of the move.
+The center cell can be taken only by one move, not considering the depth. So, this move can be represented by a specific literal ID, with the cost of losing its depth.
+
+Two moves that have the same IDs represent the same move. Two moves that were different because of old IDs can be similar now.
+
+In high depths, the point of view can switched from the taken cells' view to the empty cells' view to categorise the moves easier; this process can lead to ambiguities too.
+
+These new moves can be combined, using a partition to recognise them, to represent a Tic-Tac-Toe game, just like the numeric moves; but this time in a sequence that is universal because it isn't affected by transformations.
+Just like for moves, games that were previously different can be similar now.
